@@ -1,0 +1,15 @@
+</br>
+<div class='row'>
+  <div class = 'col-md-4'>
+    <h2><%=@category.name%> WODs</h4></h2>
+  </div>
+  <div class = 'col-md-2 .col-md-offset-4'>
+    <%= link_to new_user_wod_path(current_user), class: 'btn btn-primary pull-right', id: 'new-wod-button' do %>
+      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+    <% end %>
+  </div>
+</div>
+</br>
+<% @category.wods.each do |wod| %>
+  <%= render 'wods/wod', wod: wod %>
+<% end %>

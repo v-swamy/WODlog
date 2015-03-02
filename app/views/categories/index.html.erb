@@ -1,0 +1,70 @@
+</br>
+<%= render 'shared/errors', object: @category %>
+<div class="panel panel-primary">
+  <!-- panel -->
+  <div class="panel-heading">
+    <h2>
+      Categories
+      <button type="button" class='btn btn-success' data-toggle="modal" data-target="#newCategoryModal">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+      </button>
+    </h2>  
+  </div>
+  <div class="panel-body">
+     <h5>Click to edit or delete</h5>
+  </div>
+  <!-- List group -->
+  <ul class="list-group">
+    <% current_user.categories.each do |cat| %>
+      <%= form_for [current_user, cat] do |f|%> 
+        <%= link_to edit_user_category_path(current_user, cat), class: "list-group-item", data: {toggle: "modal", target: "#categoryModal#{cat.id}"} do %>
+          <%= cat.name %>
+          <span class="badge"><%=cat.wods.length%></span>
+        <% end %>
+        <!-- edit/delete modal -->
+        <div class="modal fade" id="categoryModal<%= cat.id %>" tabindex="-1" role="dialog" aria-labelledby="Category" aria-hidden="true">
+          <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="categoryModalLabel">Edit category</h4>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                  <%= f.text_field :name, class: 'form-control' %>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <%= f.submit 'Save', class: 'btn btn-primary' %>
+                <%= link_to 'Delete', user_category_path(current_user, cat), class: 'btn btn-danger', method: :delete %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %> 
+    <% end %>
+  </ul>
+</div>
+<!-- New category modal -->
+<%= form_for [current_user, @category] do |f|%>
+<div class="modal fade" id="newCategoryModal" tabindex="-1" role="dialog" aria-labelledby="NewCategory" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="newCategoryLabel">New Category</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+            <%= f.text_field :name, class: 'form-control' %> 
+        </div>    
+      </div>
+      <div class="modal-footer">
+        <%= f.submit 'Save', class: 'btn btn-primary' %>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>

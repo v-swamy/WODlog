@@ -1,0 +1,22 @@
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+  padding-top: 50px;
+  padding-bottom: 20px;
+}
+
+#view-profile-button {
+  margin-right: 20px;
+}
+
+#new-wod-button {
+  margin-top: 20px;
+}
+
+#trash-button {
+  margin-left: 15px;
+  cursor: pointer;
+}
+
+#edit-category {
+  margin-left: 15px;
+}

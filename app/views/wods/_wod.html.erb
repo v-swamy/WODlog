@@ -1,0 +1,39 @@
+<div class = 'row'>
+  <div class = 'col-md-6'>
+    <div class ='panel panel-success'>
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <%= display_datetime(wod.created_at) %>
+          <span class="glyphicon glyphicon-trash pull-right" id="trash-button" aria-hidden="true" data-toggle='modal' data-target="#deleteModal"></span>
+          <!-- Modal -->
+          <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="Delete" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+              <div class="modal-content">
+                <div class="modal-body">
+                  Are you sure you want to delete this WOD?
+                </div>
+                <div class="modal-footer">
+                  <%= link_to 'Delete', user_wod_path(current_user, wod), class: 'btn btn-danger', method: :delete %>
+                  <%= link_to 'Cancel', root_path, class: 'btn btn-default' %>
+                </div>
+              </div>
+            </div>
+          </div>
+          <%= link_to edit_user_wod_path(current_user, wod) do %>
+            <span class="glyphicon glyphicon-pencil pull-right" aria-hidden="true"></span>
+          <%end%>
+        </h3>
+      </div>
+      <div class="panel-body">
+        <%= simple_format(wod.workout) %>
+      </div>
+      <div class="panel-footer">
+        <h4>
+        <% wod.categories.each do |cat| %>
+          <span class="label label-danger"><%= cat.name %></span>
+        <% end %>
+        </h4>
+      </div>
+    </div>
+  </div>
+</div>

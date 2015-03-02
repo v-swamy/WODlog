@@ -1,0 +1,56 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href='<%= root_path %>'>WODLog</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <% if !logged_in? %>
+        <%= form_tag '/login', class: 'navbar-form navbar-right' do %>
+          <div class="form-group">
+            <%= text_field_tag :email, nil, placeholder: 'Email', class: 'form-control' %>
+          </div>
+          <div class="form-group">
+            <%= password_field_tag :password, nil, placeholder: "Password", class: 'form-control' %>
+          </div>
+          <%= submit_tag "Sign in", class: 'btn btn-success' %>
+        <% end %>
+      <% else %>
+        <div class='navbar-form navbar-right'>
+          <div class="form-group">
+            <div class="btn-group">
+              <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                  Categories <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu">
+                <% current_user.categories.all.sort.each do |category| %>
+                  <li><%= link_to category.name, user_category_path(current_user, category) %></li>
+                <% end %>
+                <li class="divider"></li>
+                <li>
+                  <%= link_to user_categories_path(current_user) do %>
+                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                    Edit
+                  <% end %>
+                </li>
+              </ul>
+            </div>
+            <%= link_to user_path(current_user), class: 'btn btn-info', id: 'view-profile-button' do %>
+              <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+              View Profile
+            <% end %>
+            <%= link_to logout_path, class: 'btn btn-warning' do %>
+              <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+              Log out
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div><!--/.navbar-collapse -->
+  </div>
+</nav>

@@ -1,0 +1,18 @@
+<%= render 'shared/title', title: "Your profile" %>
+<div class='well'>
+  <div class="dl-horizontal">
+    <dt>Username:</dt>
+    <dd><%=current_user.username%></dd>
+    </br>
+    <dt>Email:</dt>
+    <dd><%=current_user.email%></dd>
+    </br> 
+    <dt>Phone:</dt>
+    <dd><%=current_user.phone%></dd>
+    </br>
+    <dt>WODS logged:</dt>
+    <dd><%=current_user.wods.length%></dd>
+    </br>
+    <%= link_to 'Update profile', edit_user_path(current_user), class: 'btn btn-primary col-md-offset-2' %>
+  </div>
+</div>
